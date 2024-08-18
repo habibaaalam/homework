@@ -1,0 +1,155 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Date Methods in JavaScript</title>  
+    <script>  
+        // 1. Display current date and time in your browser  
+        function displayCurrentDateTime() {  
+            const now = new Date();  
+            document.getElementById("currentDateTime").innerText = now;  
+        }  
+
+        // 2. Alert the current month in words  
+        function alertCurrentMonth() {  
+            const now = new Date();  
+            const monthNames = [  
+                "January", "February", "March", "April",   
+                "May", "June", "July", "August",   
+                "September", "October", "November", "December"  
+            ];  
+            alert(monthNames[now.getMonth()]);  
+        }  
+
+        // 3. Alert the first 3 letters of the current day  
+        function alertCurrentDay() {  
+            const now = new Date();  
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];  
+            alert(dayNames[now.getDay()]);  
+        }  
+
+        // 4. Display a message if it's Saturday or Sunday  
+        function checkWeekend() {  
+            const now = new Date();  
+            if (now.getDay() === 0 || now.getDay() === 6) {  
+                alert("It’s Fun day");  
+            }  
+        }  
+
+        // 5. Show message based on the date of the month  
+        function checkDateOfMonth() {  
+            const now = new Date();  
+            if (now.getDate() < 16) {  
+                alert("First fifteen days of the month");  
+            } else {  
+                alert("Last days of the month");  
+            }  
+        }  
+
+        // 6. Determine minutes since midnight, Jan. 1, 1970  
+        function minutesSinceEpoch() {  
+            const minutes = Math.floor((Date.now() / 1000) / 60);  
+            alert(minutes);  
+        }  
+
+        // 7. Test whether it's before noon and alert  
+        function checkTime() {  
+            const now = new Date();  
+            alert(now.getHours() < 12 ? "Its AM" : "Its PM");  
+        }  
+
+        // 8. Create a Date object for the last day of last month of 2020  
+        function lastDayOfLastMonth2020() {  
+            const laterDate = new Date(2020, 11, 31);  
+            alert(laterDate);  
+        }  
+
+        // 9. Alert the number of days past since 1st Ramadan  
+        function daysSinceRamadan() {  
+            const ramadanStart = new Date(2015, 5, 18); // June 18, 2015  
+            const today = new Date();  
+            const diffTime = Math.abs(today - ramadanStart);  
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));  
+            alert(diffDays);  
+        }  
+
+        // 10. Display the seconds elapsed between a reference date and beginning of 2015  
+        function secondsSince2015() {  
+            const referenceDate = new Date("2015-01-01T00:00:00Z");  
+            const now = new Date();  
+            const secondsElapsed = Math.floor((now - referenceDate) / 1000);  
+            alert(secondsElapsed);  
+        }  
+
+        // 11. Create a Date object for current date, reset hour and display  
+        function adjustCurrentDateTime() {  
+            const now = new Date();  
+            now.setHours(now.getHours() + 1);  
+            document.getElementById("adjustedDateTime").innerText = now;  
+        }  
+
+        // 12. Show date in an alert box that is reset to 100 years back  
+        function dateHundredYearsBack() {  
+            const now = new Date();  
+            now.setFullYear(now.getFullYear() - 100);  
+            alert(now);  
+        }  
+
+        // 13. Ask user about age and calculate birth year  
+        function calculateBirthYear() {  
+            const age = prompt("Please enter your age:");  
+            if (age !== null && !isNaN(age)) {  
+                const currentYear = new Date().getFullYear();  
+                const birthYear = currentYear - age;  
+                alert("Your birth year is: " + birthYear);  
+            }  
+        }  
+
+        // 14. Generate K-Electric bill  
+        function generateBill() {  
+            const customerName = prompt("Enter Customer Name:");  
+            const currentMonth = new Date().toLocaleString('default', { month: 'long' });  
+            const units = parseFloat(prompt("Enter Number of Units:"));  
+            const chargesPerUnit = parseFloat(prompt("Enter Charges per Unit:"));  
+            const latePaymentSurcharge = parseFloat(prompt("Enter Late Payment Surcharge:"));  
+
+            const netAmount = (units * chargesPerUnit).toFixed(2);  
+            const grossAmount = (parseFloat(netAmount) + latePaymentSurcharge).toFixed(2);  
+            
+            const billDetails = `  
+            Customer Name: ${customerName}  
+            Current Month: ${currentMonth}  
+            Number of Units: ${units}  
+            Charges per Unit: ${chargesPerUnit}  
+            Net Amount Payable (within Due Date): ${netAmount}  
+            Late Payment Surcharge: ${latePaymentSurcharge}  
+            Gross Amount Payable (after Due Date): ${grossAmount}  
+            `;  
+            alert(billDetails);  
+        }  
+    </script>  
+</head>  
+<body onload="displayCurrentDateTime(); adjustCurrentDateTime();">  
+    <h1>Date Methods in JavaScript</h1>  
+
+    <h2>1. Current Date and Time:</h2>  
+    <p id="currentDateTime"></p>  
+
+    <h2>11. Adjusted Current Date and Time (1 hour ahead):</h2>  
+    <p id="adjustedDateTime"></p>  
+
+    <button onClick="alertCurrentMonth()">2. Alert Current Month</button>  
+    <button onClick="alertCurrentDay()">3. Alert Current Day</button>  
+    <button onClick="checkWeekend()">4. Check for Funday</button>  
+    <button onClick="checkDateOfMonth()">5. Check Date of Month</button>  
+    <button onClick="minutesSinceEpoch()">6. Minutes Since Epoch</button>  
+    <button onClick="checkTime()">7. Check Time (AM/PM)</button>  
+    <button onClick="lastDayOfLastMonth2020()">8. Last Day of Last Month 2020</button>  
+    <button onClick="daysSinceRamadan()">9. Days Since Ramadan</button>  
+    <button onClick="secondsSince2015()">10. Seconds Since 2015</button>  
+    <button onClick="dateHundredYearsBack()">12. Date 100 Years Back</button>  
+    <button onClick="calculateBirthYear()">13. Calculate Birth Year</button>  
+    <button onClick="generateBill()">14. Generate K-Electric Bill</button>  
+</body>  
+</html>
